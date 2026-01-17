@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongoexpress-deployment
+  labels:
+     app: mongoexpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongoexpress
+  template:
+    metadata:
+      labels:
+         app: mongoexpress
+    spec:
+      containers:
+      - name: mongoexpress
+        image: mongo-express
+        ports:
+        - containerPort: 8081
+        env:   #Environment variables required by mongo-express to autheticate with mongo-db
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+          valueFrom:
+             secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-username
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+          valueFrom:
+             secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-password
+        - name: ME_CONFIG_MONGODB_SERVER #The databse which it should connect
+          valueFrom:
+             configMapKeyRef:
+                name: mongodb-configmap
+                key: database_url
+
+#Creating a Load balancer external service to access the mongoexpress pod
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: mongoexpress-service
+spec:
+  selector:
+     app: mongoexpress  #attach the service with the deployment
+  type: LoadBalancer   
+  ports:
+  - protocol: TCP
+    port: 8081
+    targetPort: 8081
+    nodePort: 30000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
