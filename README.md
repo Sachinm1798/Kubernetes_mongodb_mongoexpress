@@ -5,10 +5,15 @@ This project demonstrates deploying a stateful backend (MongoDB) and a web-based
 Components Overview :-
 
 -MongoDB Pod – Database running inside the cluster
+
 -MongoDB Internal Service (ClusterIP) – Internal access for Mongo Express and Node.js app
+
 -Secret – Stores MongoDB credentials securely
+
 -ConfigMap – Stores non‑sensitive configuration values
+
 -Mongo Express Deployment – Web UI for MongoDB
+
 -Mongo Express External Service – Exposes Mongo Express to the browser
 
 Prerequisites :-
