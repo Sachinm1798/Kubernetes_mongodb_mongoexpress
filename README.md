@@ -1,4 +1,4 @@
-                                          #Deploying MongoDB and Mongo Express on Kubernetes#
+Deploying MongoDB and Mongo Express on Kubernetes
 
 This project demonstrates deploying a stateful backend (MongoDB) and a web-based database UI (Mongo Express) on a Kubernetes cluster, using best practices such as Secrets, ConfigMaps, internal and external Services.
 
@@ -20,25 +20,25 @@ Steps to Deploy the Application:-
 
 Step 1: Create Secrets
 
-kubectl apply -f mongo-secret.yaml
+     kubectl apply -f mongo-secret.yaml
 
 Stores MongoDB username and password securely.
 
 Step 2: Deploy MongoDB Pod
 
-kubectl apply -f mongo-deployment.yaml
+    kubectl apply -f mongo-deployment.yaml
 
 MongoDB runs inside the cluster with credentials injected from Secrets.
 
 Step 3: Create ConfigMap
 
-kubectl apply -f mongo-configmap.yaml
+    kubectl apply -f mongo-configmap.yaml
 
 Stores MongoDB service name and database configuration.
 
 Step 5: Deploy Mongo Express
 
-kubectl apply -f mongo-express-deployment.yaml
+    kubectl apply -f mongo-express-deployment.yaml
 
 Mongo Express connects to MongoDB using Secrets and ConfigMap values.
 
@@ -46,8 +46,8 @@ Accessing Mongo Express
 
 For Minikube:
 
-minikube service mongo-express-service
+    minikube service mongo-express-service
 
 Or access via browser:
 
-http://<NODE_IP>:<NODE_PORT>
+    http://<NODE_IP>:<NODE_PORT>
